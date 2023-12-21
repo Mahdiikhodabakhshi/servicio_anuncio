@@ -14,7 +14,7 @@ export class Anuncio {
 
 
     @Prop({type : mongoose.Schema.Types.ObjectId , ref:'User'})
-    usario:User;
+    usuario:User;
 
 
 

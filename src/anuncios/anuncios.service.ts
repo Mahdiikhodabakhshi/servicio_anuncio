@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateAnuncioDto } from './dto/create-anuncio.dto';
 import { UpdateAnuncioDto } from './dto/update-anuncio.dto';
 import { InjectModel } from '@nestjs/mongoose';
@@ -9,25 +9,37 @@ import { Model } from 'mongoose';
 export class AnunciosService {
 
   constructor(
-    @InjectModel(Anuncio.name)  private anuncioModule : Model<Anuncio>
+    @InjectModel(Anuncio.name)  private anuncioSchema : Model<Anuncio>
     ){}
-  create(createAnuncioDto: CreateAnuncioDto) {
-    return 'This action adds a new anuncio';
+
+
+
+  async create(createAnuncioDto: CreateAnuncioDto):Promise<Anuncio> {
+    const nuevoAnuncio = new this.anuncioSchema(createAnuncioDto);
+
+    const otrousuario = await this.anuncioSchema.findOne({titulo : nuevoAnuncio.titulo}).exec();
+
+    if(otrousuario) throw new BadRequestException({'message' : 'ya existe este anuncio'});
+
+    return nuevoAnuncio.save();
   }
 
-  findAll() {
-    return `This action returns all anuncios`;
+  async findAll() :Promise<Anuncio[]> {
+    return this.anuncioSchema.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} anuncio`;
+  async findOne(id : string):Promise<Anuncio> {
+    return this.anuncioSchema.findById(id);
   }
 
-  update(id: number, updateAnuncioDto: UpdateAnuncioDto) {
-    return `This action updates a #${id} anuncio`;
+  async update(id : string, updateAnuncioDto: UpdateAnuncioDto) : Promise<Anuncio> {
+    return this.anuncioSchema.findByIdAndUpdate(
+      id ,
+      {$set : updateAnuncioDto},
+    );
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} anuncio`;
+  async remove(id: string):Promise<Anuncio | unknown> {
+    return this.anuncioSchema.findByIdAndDelete(id);
   }
 }

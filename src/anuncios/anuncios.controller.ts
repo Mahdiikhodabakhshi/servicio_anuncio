@@ -19,16 +19,16 @@ export class AnunciosController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.anunciosService.findOne(+id);
+    return this.anunciosService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateAnuncioDto: UpdateAnuncioDto) {
-    return this.anunciosService.update(+id, updateAnuncioDto);
+    return this.anunciosService.update(id, updateAnuncioDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.anunciosService.remove(+id);
+    return this.anunciosService.remove(id);
   }
 }

@@ -28,6 +28,10 @@ export class UsersService {
     return this.userSchema.findById(id).exec();
   }
 
+  async findByUserName(username : string) :Promise<User>{
+    return this.userSchema.findOne({username}).exec();
+  }
+
   async update(id: string, updateUserDto: UpdateUserDto):Promise<User> {
     return this.userSchema.findByIdAndUpdate(
       id ,

@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { tipousario } from "./enum";
+import { tipousuario } from "./enum";
 
 @Schema()
 export class User {
@@ -13,8 +13,8 @@ export class User {
     @Prop({required:true})
     nombre:string;
 
-    @Prop({default : tipousario.usuario})
-    rol:tipousario;
+    @Prop({default : tipousuario.usuario})
+    rol:tipousuario;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
