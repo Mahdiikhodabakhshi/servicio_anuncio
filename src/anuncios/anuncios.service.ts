@@ -24,12 +24,13 @@ export class AnunciosService {
     return nuevoAnuncio.save();
   }
 
-  async findAll() :Promise<Anuncio[]> {
+ 
+  async findAll() :Promise<any[]> {
     return this.anuncioSchema.find().exec();
   }
 
-  async findOne(id : string):Promise<Anuncio> {
-    return this.anuncioSchema.findById(id);
+  async findOne(id : string):Promise<any> {
+    return this.anuncioSchema.findById(id).populate('usuario');
   }
 
   async update(id : string, updateAnuncioDto: UpdateAnuncioDto) : Promise<Anuncio> {
@@ -37,6 +38,7 @@ export class AnunciosService {
       id ,
       {$set : updateAnuncioDto},
     );
+
   }
 
   async remove(id: string):Promise<Anuncio | unknown> {

@@ -17,6 +17,8 @@ export class UsersService {
     const otroUsuario= await this.userSchema.findOne({username : nuevaUsuario.username}).exec();
     
     if(otroUsuario) throw new BadRequestException({'message' : 'YA EXISTE USUARIO'});
+
+    
     return nuevaUsuario.save();
   }
 
@@ -29,6 +31,10 @@ export class UsersService {
   }
 
   async findByUserName(username : string) :Promise<User>{
+    return this.userSchema.findOne({username}).exec();
+  }
+  
+  async findByUserNameForAnuncio(username : string) :Promise<any>{
     return this.userSchema.findOne({username}).exec();
   }
 

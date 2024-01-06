@@ -19,7 +19,7 @@ export class CreateUserDto {
     @IsNotEmpty()
     nombre:string;
 
-    @IsString()
+    @IsEnum(tipousuario)
     @IsOptional()
     rol:string;
 

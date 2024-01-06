@@ -13,7 +13,7 @@ export class Anuncio {
     descripcion: string;
 
 
-    @Prop({type : mongoose.Schema.Types.ObjectId , ref:'User'})
+    @Prop({type : mongoose.Schema.Types.ObjectId , ref:'User'}) 
     usuario:User;
 
 
